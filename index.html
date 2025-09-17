@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krishi Sahayog Pro</title>
+<link rel="icon" type="image/jpeg" href="/Users/safalyavijaymohod/Downloads/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<style>
+  :root {
+    --bg-color: #f8fcf9;
+    --primary-bg: #ffffff;
+    --secondary-bg: #f0f2f5;
+    --accent-color: #3C8E4D;
+    --accent-hover: #2E7D32;
+    --text-color-dark: #333333;
+    --text-color-light: #ffffff;
+    --subtle-color: #6a7480;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.08);
+    --border-radius-lg: 16px;
+    --border-radius-sm: 8px;
+    --transition-speed: 0.3s;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color-dark);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background: url('https://i.postimg.cc/SQThMw0G/temp-Image-QFAX7-N.avif') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .login-card, .page-content, .help-content, .location-content, .community-content, .weather-content {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 24px var(--shadow-light);
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .login-card h2 {
+    margin: 0 0 25px 0;
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .login-card input, .login-card select, .contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid #e0e0e0;
+    outline: none;
+    font-size: 14px;
+    background: #f8f8f8;
+    color: var(--text-color-dark);
+    transition: all var(--transition-speed) ease;
+    font-family: inherit;
+  }
+
+  .login-card input::placeholder {
+    color: var(--subtle-color);
+  }
+
+  .login-card input:focus, .login-card select:focus, .contact-form input:focus, .contact-form textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px rgba(60, 142, 77, 0.3);
+  }
+
+  .login-card button, .contact-form button {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    background: var(--accent-color);
+    color: var(--text-color-light);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 12px rgba(60, 142, 77, 0.3);
+  }
+
+  .login-card button:hover, .contact-form button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(60, 142, 77, 0.4);
+  }
+
+  .login-card .links {
+    margin-top: 20px;
+    font-size: 13px;
+  }
+
+  .login-card .links a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+  }
+
+  .login-card .links a:hover {
+    text-decoration: underline;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--subtle-color);
+    transition: color var(--transition-speed) ease;
+  }
+
+  .toggle-password:hover {
+    color: var(--text-color-dark);
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .material-symbols-rounded {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  #appContainer {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+    background: var(--bg-color);
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  #sidebar {
+    width: 250px;
+    background: var(--primary-bg);
+    color: var(--text-color-dark);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 2px 0 10px var(--shadow-medium);
+    z-index: 10;
+  }
+
+  #sidebar h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: var(--accent-color);
+    font-weight: 600;
+  }
+
+  #sidebar select {
+    padding: 8px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    background: #f8f8f8;
+    color: var(--text-color-dark);
+    font-family: inherit;
+    font-size: 13px;
+  }
+
+  #sidebar button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--subtle-color);
+    margin-bottom: 8px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+  }
+  #sidebar button.active {
+    color: var(--accent-color);
+    background: #e9f5ed;
+  }
+  #sidebar button .material-symbols-rounded {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
+  #sidebar button:hover {
+    color: var(--accent-color);
+    background: #e9f5ed;
+  }
+  #sidebar button:hover .material-symbols-rounded {
+    filter: brightness(1.2) drop-shadow(0 0 5px rgba(60, 142, 77, 0.4));
+  }
+
+  #menuToggle {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--accent-color);
+    color: var(--text-color-light);
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all var(--transition-speed) ease;
+  }
+  #menuToggle:hover {
+    background: var(--accent-hover);
+  }
+
+  #chatContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--secondary-bg);
+  }
+
+  #chatHeader {
+    padding: 15px;
+    background: var(--primary-bg);
+    color: var(--text-color-dark);
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    box-shadow: 0 2px 10px var(--shadow-medium);
+  }
+
+  #chatMessages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .message {
+    max-width: 80%;
+    padding: 12px 18px;
+    border-radius: var(--border-radius-lg);
+    line-height: 1.5;
+    word-wrap: break-word;
+    animation: messagePop var(--transition-speed) ease-out;
+    box-shadow: 0 2px 8px var(--shadow-light);
+  }
+  .user {
+    align-self: flex-end;
+    background: var(--accent-color);
+    color: var(--text-color-light);
+    border-bottom-right-radius: 4px;
+  }
+  .bot {
+    align-self: flex-start;
+    background: var(--primary-bg);
+    color: var(--text-color-dark);
+    border-bottom-left-radius: 4px;
+    border: 1px solid #e0e0e0;
+  }
+
+  #chatInput {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: var(--primary-bg);
+    position: relative;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .input-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--secondary-bg);
+    border: 1px solid #e0e0e0;
+    border-radius: 24px;
+    padding: 6px 12px;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 0 5px transparent;
+  }
+  .input-container:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px rgba(60, 142, 77, 0.3);
+  }
+
+  #userInput {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+    color: var(--text-color-dark);
+    font-family: inherit;
+  }
+  #userInput::placeholder {
+    color: var(--subtle-color);
+  }
+
+  .input-container .icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--subtle-color);
+    transition: all var(--transition-speed) ease;
+    padding: 6px;
+    border-radius: 50%;
+  }
+  .input-container .icon-btn:hover {
+    background: #e9f5ed;
+    color: var(--accent-color);
+  }
+
+  #sendBtn {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: var(--text-color-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 0 5px transparent;
+  }
+  #sendBtn:hover {
+    transform: scale(1.05);
+    background: var(--accent-hover);
+    box-shadow: 0 0 10px rgba(60, 142, 77, 0.5);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes messagePop {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* Specific page content styles */
+  .content-page {
+    flex: 1;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+  .content-page.active {
+    display: flex;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-color);
+    margin-bottom: 20px;
+  }
+  .profile-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin-bottom: 5px;
+  }
+  .profile-info {
+    color: var(--subtle-color);
+    margin-bottom: 15px;
+  }
+  .profile-details {
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+  }
+  .profile-details p {
+    background: var(--secondary-bg);
+    padding: 10px 15px;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .profile-details p .material-symbols-rounded {
+    margin-right: 10px;
+    color: var(--accent-color);
+  }
+
+  .help-content h3, .location-content h3, .community-content h3, .weather-content h3 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  .help-content p, .location-content p, .weather-content p {
+    text-align: center;
+    color: var(--text-color-dark);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .contact-form input, .contact-form textarea {
+    font-family: inherit;
+  }
+  .contact-form button {
+    background: var(--accent-color);
+  }
+
+  .map-image, .weather-image {
+    width: 100%;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 4px 12px var(--shadow-medium);
+  }
+  .community-content {
+    background: var(--primary-bg);
+    box-shadow: none;
+  }
+  .post {
+    width: 100%;
+    background: var(--secondary-bg);
+    padding: 15px;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px var(--shadow-light);
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  .post-author {
+    font-weight: 600;
+  }
+  .post-date {
+    color: var(--subtle-color);
+    font-size: 12px;
+    margin-left: auto;
+  }
+  .post-body {
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    html, body {
+      font-size: 13px;
+    }
+    html {
+      background-attachment: scroll !important;
+    }
+    #appContainer {
+      flex-direction: column;
+    }
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      max-width: 250px;
+      transform: translateX(-100%);
+      box-shadow: none;
+    }
+    #sidebar.show {
+      transform: translateX(0);
+      box-shadow: 4px 0 15px var(--shadow-medium);
+    }
+    #menuToggle {
+      display: block;
+    }
+    #chatContainer {
+      flex: 1;
+    }
+    #sendBtn {
+      width: 38px;
+      height: 38px;
+    }
+    .login-card {
+      padding: 25px;
+      max-width: calc(100% - 40px);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="login-card" id="loginCard">
+  <h2>Krishi Sahayog Login</h2>
+  <select id="language" onchange="applyTranslations(this.value)"></select>
+  <input type="text" id="username" placeholder="Username">
+  <div class="input-wrapper">
+    <input type="password" id="password" placeholder="Password">
+    <span class="toggle-password" onclick="togglePassword()">
+      <span class="material-symbols-rounded">visibility</span>
+    </span>
+  </div>
+  <button id="loginBtn" onclick="login()">Login</button>
+  <div class="links">
+    <a href="#" id="forgotPasswordLink" onclick="forgotPassword()">Forgot Password?</a> |
+    <a href="#" id="signupLink" onclick="signup()">Sign Up</a>
+  </div>
+</div>
+
+<div id="appContainer">
+  <button id="menuToggle" onclick="toggleMenu()">
+    <span class="material-symbols-rounded">menu</span>
+  </button>
+  <div id="sidebar">
+    <h2>Krishi Sahayog</h2>
+    <select id="appLanguage" onchange="changeAppLanguage()"></select>
+    <button id="chatBtn" class="active" onclick="showPage('chat')"><span class="material-symbols-rounded">chat</span> Chat</button>
+    <button id="profileBtn" onclick="showPage('profile')"><span class="material-symbols-rounded">person</span> Profile</button>
+    <button id="helpBtn" onclick="showPage('help')"><span class="material-symbols-rounded">help</span> Help Desk</button>
+    <button id="locationBtn" onclick="showPage('location')"><span class="material-symbols-rounded">pin_drop</span> Location</button>
+    <button id="updateBtn" onclick="showPage('updates')"><span class="material-symbols-rounded">article</span> Updates</button>
+    <button id="communityBtn" onclick="showPage('community')"><span class="material-symbols-rounded">groups</span> Community</button>
+    <button id="weatherBtn" onclick="showPage('weather')"><span class="material-symbols-rounded">partly_cloudy_day</span> Weather</button>
+    <button onclick="logout()" id="logoutBtn">
+      <span class="material-symbols-rounded">logout</span> Logout
+    </button>
+  </div>
+  <div id="chatContainer">
+    <div id="chatHeader">Krishi Sahayog</div>
+
+    <div id="chatPage" class="content-page active">
+        <div id="chatMessages"></div>
+        <div id="chatInput">
+            <div class="input-container">
+                <button class="icon-btn" onclick="startVoiceInput()">
+                    <span class="material-symbols-rounded">mic</span>
+                </button>
+                <button class="icon-btn" onclick="captureImage()">
+                    <span class="material-symbols-rounded">photo_camera</span>
+                </button>
+                <input type="text" id="userInput" placeholder="Ask Krishi Sahayog anything..."/>
+            </div>
+            <button id="sendBtn" onclick="sendMessage()">
+                <span class="material-symbols-rounded">send</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="profilePage" class="content-page">
+        <div class="page-content">
+            <img src='https://i.postimg.cc/ZqSg2hvp/temp-Image-GDEi-C6.avif' alt="Profile Image" class="profile-image">
+            <h3 class="profile-name">Suresh Yadav</h3>
+            <p class="profile-info">Farmer since 2010</p>
+            <div class="profile-details">
+                <p><span class="material-symbols-rounded">mail</span> Email: kisan@example.com</p>
+                <p><span class="material-symbols-rounded">phone</span> Phone: +91 98765 43210</p>
+                <p><span class="material-symbols-rounded">location_on</span> Location: Ranchi, jharkhand, India</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="helpPage" class="content-page">
+        <div class="help-content">
+            <h3>Need Assistance?</h3>
+            <p>If you need help with the app, please feel free to reach out to our support team using the form below. We'll get back to you as soon as possible!</p>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Tell us how we can help..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="locationPage" class="content-page">
+        <div class="location-content">
+            <h3>Your Farm's Location</h3>
+            <p>This map shows the location of your registered farm. This information is used to provide accurate weather and soil data.</p>
+            <img src='https://i.postimg.cc/447DYwGK/temp-Image6-Wak-O5.avif' alt="Location Map" class="map-image">
+        </div>
+    </div>
+
+    <div id="updatesPage" class="content-page">
+      <div class="community-content">
+        <h3>Updates</h3>
+        <p>There are no new updates at this time. Please check back later.</p>
+      </div>
+    </div>
+
+    <div id="communityPage" class="content-page">
+        <div class="community-content">
+            <h3>Farmer Community Forum</h3>
+            <div class="post">
+                <div class="post-header">
+                    <img src='https://i.postimg.cc/GpP0mpnX/temp-Image-NS22m-O.avif' alt="User 1">
+                    <div class="post-author">Ramesh Kumar</div>
+                    <div class="post-date">2 hours ago</div>
+                </div>
+                <div class="post-body">
+                    Need advice on managing pests on tomato plants. Any organic solutions?
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <img src='https://i.postimg.cc/cJGyWn2K/temp-Image64w-Xqk.avif' alt="User 2">
+                    <div class="post-author">Priya Sharma</div>
+                    <div class="post-date">5 hours ago</div>
+                </div>
+                <div class="post-body">
+                    The new app update is fantastic! The weather forecast feature is so helpful.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="weatherPage" class="content-page">
+        <div class="weather-content">
+            <h3>Weather Forecast for Nala Sopara</h3>
+            <p>The latest weather conditions and a 7-day forecast for your farm location.</p>
+            <img src='https://i.postimg.cc/Y2WPr9NY/temp-Image8-QC9-Ll.avif' alt="Weather Forecast" class="weather-image">
+        </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const loginCard = document.getElementById("loginCard");
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
+  const appContainer = document.getElementById("appContainer");
+  const chatMessages = document.getElementById("chatMessages");
+  const userInput = document.getElementById("userInput");
+  const sendBtn = document.getElementById("sendBtn");
+  const sidebar = document.getElementById("sidebar");
+  const passwordToggleIcon = document.querySelector('.toggle-password .material-symbols-rounded');
+
+  const validUser = "farmer";
+  const validPass = "krishi123";
+
+  const languages = [
+      { code: 'as', name: 'Assamese', local: 'অসমীয়া' },
+      { code: 'bn', name: 'Bengali', local: 'বাংলা' },
+      { code: 'gu', name: 'Gujarati', local: 'ગુજરાતી' },
+      { code: 'hi', name: 'Hindi', local: 'हिन्दी' },
+      { code: 'kn', name: 'Kannada', local: 'ಕನ್ನಡ' },
+      { code: 'ks', name: 'Kashmiri', local: 'کٲشُر' },
+      { code: 'kok', name: 'Konkani', local: 'कोंकणी' },
+      { code: 'ml', name: 'Malayalam', local: 'മലയാളം' },
+      { code: 'mni', name: 'Meitei (Manipuri)', local: 'ꯃꯩꯇꯩꯂꯣꯟ' },
+      { code: 'mr', name: 'Marathi', local: 'मराठी' },
+      { code: 'ne', name: 'Nepali', local: 'नेपाली' },
+      { code: 'or', name: 'Odia', local: 'ଓଡ଼ିଆ' },
+      { code: 'pa', name: 'Punjabi', local: 'ਪੰਜਾਬੀ' },
+      { code: 'sa', name: 'Sanskrit', local: 'संस्कृतम्' },
+      { code: 'sd', name: 'Sindhi', local: 'سنڌي' },
+      { code: 'ta', name: 'Tamil', local: 'தமிழ்' },
+      { code: 'te', name: 'Telugu', local: 'తెలుగు' },
+      { code: 'ur', name: 'Urdu', local: 'اردو' },
+      { code: 'bo', name: 'Bodo', local: 'बड़ो' },
+      { code: 'doi', name: 'Dogri', local: 'डोगरी' },
+      { code: 'mai', name: 'Maithili', local: 'मैथिली' },
+      { code: 'sat', name: 'Santali', local: 'ᱥᱟᱱᱛᱟᱲᱤ' },
+      { code: 'en', name: 'English', local: 'English' }
+  ];
+
+  function populateLanguageSelects() {
+      const loginSelect = document.getElementById('language');
+      const appSelect = document.getElementById('appLanguage');
+      
+      languages.forEach(lang => {
+          const optionLogin = document.createElement('option');
+          optionLogin.value = lang.code;
+          optionLogin.textContent = `${lang.name} (${lang.local})`;
+          loginSelect.appendChild(optionLogin);
+          
+          const optionApp = document.createElement('option');
+          optionApp.value = lang.code;
+          optionApp.textContent = `${lang.name} (${lang.local})`;
+          appSelect.appendChild(optionApp);
+      });
+      const defaultLang = 'hi';
+      loginSelect.value = defaultLang;
+      appSelect.value = defaultLang;
+      applyTranslations(defaultLang);
+  }
+
+  document.addEventListener('DOMContentLoaded', populateLanguageSelects);
+
+  function togglePassword() {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      passwordToggleIcon.textContent = "visibility_off";
+    } else {
+      passwordInput.type = "password";
+      passwordToggleIcon.textContent = "visibility";
+    }
+  }
+
+  function login() {
+    if (usernameInput.value === validUser && passwordInput.value === validPass) {
+      loginCard.style.display = "none";
+      appContainer.style.display = "flex";
+      applyTranslations(document.getElementById('appLanguage').value, true);
+    } else {
+      alert("Invalid credentials. Please use the correct username and password.");
+    }
+  }
+
+  function signup() { alert("Redirecting to the signup page."); }
+  function forgotPassword() { alert("Redirecting to the password recovery page."); }
+  function toggleMenu() { sidebar.classList.toggle("show"); }
+  function startVoiceInput() { alert("Voice input is not yet available."); }
+  function captureImage() { alert("Camera and image upload functionality is currently not active."); }
+
+  const translations = {
+    en: {
+        welcome: "Welcome to Krishi Sahayog. We are ready to assist you with your farming inquiries. What can we help you with today?",
+        demo: "This is a sample response. A full response would include detailed information and relevant sources.",
+        placeholder: "Ask Krishi Sahayog anything...",
+        header: "Krishi Sahayog",
+        logout: "Logout",
+        loginTitle: "Krishi Sahayog Login",
+        username: "Username",
+        password: "Password",
+        loginBtn: "Login",
+        forgotPassword: "Forgot Password?",
+        signup: "Sign Up",
+    },
+    hi: {
+        welcome: "कृषि सहयोग में आपका स्वागत है। हम आपकी कृषि संबंधी प्रश्नों में सहायता करने के लिए तैयार हैं। आज हम आपकी क्या मदद कर सकते हैं?",
+        demo: "यह एक नमूना जवाब है। एक पूर्ण जवाब में विस्तृत जानकारी और प्रासंगिक स्रोत शामिल होंगे।",
+        placeholder: "कृषि सहयोग से कुछ भी पूछें...",
+        header: "कृषि सहयोग",
+        logout: "लॉगआउट",
+        loginTitle: "कृषि सहयोग लॉगिन",
+        username: "उपयोगकर्ता नाम",
+        password: "पासवर्ड",
+        loginBtn: "लॉगिन",
+        forgotPassword: "पासवर्ड भूल गए?",
+        signup: "साइन अप करें",
+    },
+    mr: {
+        welcome: "कृषी सहयोगमध्ये आपले स्वागत आहे. आम्ही आपल्या शेतीसंबंधी प्रश्नांमध्ये मदत करण्यास तयार आहोत. आज आम्ही आपली काय मदत करू शकतो?",
+        demo: "हा एक नमुना प्रतिसाद आहे. संपूर्ण प्रतिसादात सविस्तर माहिती आणि संबंधित स्रोत समाविष्ट असतील.",
+        placeholder: "कृषी सहाय्याला काहीही विचारा...",
+        header: "कृषी सहयोग",
+        logout: "लॉगआउट",
+        loginTitle: "कृषी सहयोग लॉगिन",
+        username: "वापरकर्ता नाव",
+        password: "पासवर्ड",
+        loginBtn: "लॉगिन",
+        forgotPassword: "पासवर्ड विसरलात?",
+        signup: "नोंदणी करा",
+    },
+    as: {
+        welcome: "অসমীয়া অনুবাদ উপলব্ধ নাই।", demo: "অসমীয়া অনুবাদ উপলব্ধ নাই।", placeholder: "অসমীয়া অনুবাদ উপলব্ধ নাই।", header: "কৃষি সহায়ক", logout: "লগআউট", loginTitle: "কৃষি সহায়ক লগইন", username: "ব্যৱহাৰকাৰী নাম", password: "পাছৱৰ্ড", loginBtn: "লগইন", forgotPassword: "পাছৱৰ্ড পাহৰিলে?", signup: "সাইন আপ",
+    },
+    bn: {
+        welcome: "বাংলা অনুবাদ উপলব্ধ নেই।", demo: "বাংলা অনুবাদ উপলব্ধ নেই।", placeholder: "বাংলা অনুবাদ উপলব্ধ নেই।", header: "কৃষি সহায়ক", logout: "লগআউট", loginTitle: "কৃষি সহায়ক লগইন", username: "ব্যবহারকারীর নাম", password: "পাসওয়ার্ড", loginBtn: "লগইন", forgotPassword: "পাসওয়ার্ড ভুলে গেছেন?", signup: "সাইন আপ",
+    },
+    gu: {
+        welcome: "ગુજરાતી અનુવાદ ઉપલબ્ધ નથી.", demo: "ગુજરાતી અનુવાદ ઉપલબ્ધ નથી.", placeholder: "ગુજરાતી અનુવાદ ઉપલબ્ધ નથી.", header: "કૃષિ સહાયક", logout: "લોગઆઉટ", loginTitle: "કૃષિ સહાયક લૉગિન", username: "વપરાશકર્તા નામ", password: "પાસવર્ડ", loginBtn: "લોગિન", forgotPassword: "પાસવર્ડ ભૂલી ગયા?", signup: "સાઇન અપ",
+    },
+    kn: {
+        welcome: "ಕನ್ನಡ ಅನುವಾದ ಲಭ್ಯವಿಲ್ಲ.", demo: "ಕನ್ನಡ ಅನುವಾದ ಲಭ್ಯವಿಲ್ಲ.", placeholder: "ಕನ್ನಡ ಅನುವಾದ ಲಭ್ಯವಿಲ್ಲ.", header: "ಕೃಷಿ ಸಹಾಯಕ", logout: "ಲಾಗ್‌ಔಟ್", loginTitle: "ಕೃಷಿ ಸಹಾಯಕ ಲಾಗಿನ್", username: "ಬಳಕೆದಾರ ಹೆಸರು", password: "ಪಾಸ್‌ವರ್ಡ್", loginBtn: "ಲಾಗಿನ್", forgotPassword: "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿದ್ದೀರಾ?", signup: "ಸೈನ್ ಅಪ್",
+    },
+    ks: {
+        welcome: "کٲشُر ترجمہ چھنہٕ دستیاب.", demo: "کٲشُر ترجمہ چھنہٕ دستیاب.", placeholder: "کٲشُر ترجمہ چھنہٕ دستیاب.", header: "کٕشی سَहायِک", logout: "لَگآوٹ", loginTitle: "کٕشی سَहायِک لَگِن", username: "یوٗزَر نٲو", password: "پاسوَڈ", loginBtn: "لَگِن", forgotPassword: "پاسوَڈ وسارٕمت?", signup: "سائن اَپ",
+    },
+    kok: {
+        welcome: "कोंकणी अणकार उपलब्ध ना.", demo: "कोंकणी अणकार उपलब्ध ना.", placeholder: "कोंकणी अणकार उपलब्ध ना.", header: "कृषी सहाय्यक", logout: "लॉगआउट", loginTitle: "कृषी सहाय्यक लॉगइन", username: "वापरपीचें नांव", password: "पासवर्ड", loginBtn: "लॉगइन", forgotPassword: "पासवर्ड विसरलां?", signup: "साइन अप",
+    },
+    ml: {
+        welcome: "മലയാളം വിവർത്തനം ലഭ്യമല്ല.", demo: "മലയാളം വിവർത്തനം ലഭ്യമല്ല.", placeholder: "മലയാളം വിവർത്തനം ലഭ്യമല്ല.", header: "കൃഷി സഹായക്", logout: "ലോഗ്ഔട്ട്", loginTitle: "കൃഷി സഹായക് ലോഗിൻ", username: "ഉപയോക്തൃനാമം", password: "പാസ്‌വേർഡ്", loginBtn: "ലോഗിൻ", forgotPassword: "പാസ്‌വേഡ് മറന്നുപോയോ?", signup: "സൈൻ അപ്പ്",
+    },
+    mni: {
+        welcome: "ꯃꯩꯇꯩꯂꯣꯟ ꯑꯅꯨꯕꯥ ꯂꯩꯇꯦ꯫", demo: "ꯃꯩꯇꯩꯂꯣꯟ ꯑꯅꯨꯕꯥ ꯂꯩꯇꯦ꯫", placeholder: "ꯃꯩꯇꯩꯂꯣꯟ ꯑꯅꯨꯕꯥ ꯂꯩꯇꯦ꯫", header: "ꯀ꯭ꯔꯤꯁꯤ ꯁꯍꯥꯏꯛ", logout: "ꯂꯣꯒꯥꯎꯠ", loginTitle: "ꯀ꯭ꯔꯤꯁꯤ ꯁꯍꯥꯏꯛ ꯂꯣꯒꯤꯟ", username: "ꯌꯨꯖꯔꯅꯦꯝ", password: "ꯄꯥꯁꯋꯥꯔꯗ", loginBtn: "ꯂꯣꯒꯤꯟ", forgotPassword: "ꯄꯥꯁꯋꯥꯔꯗ ꯃꯥꯡꯈ꯭ꯔꯕꯥ?", signup: "ꯁꯥꯏꯟ ꯑꯞ",
+    },
+    ne: {
+        welcome: "नेपाली अनुवाद उपलब्ध छैन।", demo: "नेपाली अनुवाद उपलब्ध छैन।", placeholder: "नेपाली अनुवाद उपलब्ध छैन।", header: "कृषि सहायक", logout: "लगआउट", loginTitle: "कृषि सहायक लगइन", username: "प्रयोगकर्ता नाम", password: "पासवर्ड", loginBtn: "लगइन", forgotPassword: "पासवर्ड बिर्सनुभयो?", signup: "साइन अप",
+    },
+    or: {
+        welcome: "ଓଡ଼ିଆ ଅନୁବାଦ ଉପଲବ୍ଧ ନାହିଁ।", demo: "ଓଡ଼ିଆ ଅନୁବାଦ ଉପଲବ୍ଧ ନାହିଁ।", placeholder: "ଓଡ଼ିଆ ଅନୁବାଦ ଉପଲବ୍ଧ ନାହିଁ।", header: "କୃଷି ସହାୟକ", logout: "ଲଗଆଉଟ୍", loginTitle: "କୃଷି ସହାୟକ ଲଗଇନ୍", username: "ଉପଭୋକ୍ତା ନାମ", password: "ପାସୱାର୍ଡ", loginBtn: "ଲଗଇନ୍", forgotPassword: "ପାସୱାର୍ଡ ଭୁଲିଗଲେ?", signup: "ସାଇନ୍ ଅପ୍",
+    },
+    pa: {
+        welcome: "ਪੰਜਾਬੀ ਅਨੁਵਾਦ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।", demo: "ਪੰਜਾਬੀ ਅਨੁਵਾਦ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।", placeholder: "ਪੰਜਾਬੀ ਅਨੁਵਾਦ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।", header: "ਕ੍ਰਿਸ਼ੀ ਸਹਾਇਕ", logout: "ਲੌਗਆਉਟ", loginTitle: "ਕ੍ਰਿਸ਼ੀ ਸਹਾਇਕ ਲਾਗਇਨ", username: "ਯੂਜ਼ਰਨੇਮ", password: "ਪਾਸਵਰਡ", loginBtn: "ਲਾਗਇਨ", forgotPassword: "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ?", signup: "ਸਾਈਨ ਅੱਪ",
+    },
+    sa: {
+        welcome: "संस्कृत अनुवादः उपलब्धः नास्ति।", demo: "संस्कृत अनुवादः उपलब्धः नास्ति।", placeholder: "संस्कृत अनुवादः उपलब्धः नास्ति।", header: "कृषि सहायकः", logout: "निर्गमनम्", loginTitle: "कृषि सहायकः प्रवेशः", username: "उपयोगकर्ता नाम", password: "पस्वर्ड", loginBtn: "प्रवेशः", forgotPassword: "पस्वर्ड विस्मृतवान्?", signup: "साइन अप",
+    },
+    sd: {
+        welcome: "سنڌي ترجمو موجود نه آهي.", demo: "سنڌي ترجمو موجود نه آهي.", placeholder: "سنڌي ترجمو موجود نه آهي.", header: "ڪرشي سهائڪ", logout: "لاگ آئوٽ", loginTitle: "ڪرشي سهائڪ لاگ ان", username: "يوزرنيم", password: "پاسورڊ", loginBtn: "لاگ ان", forgotPassword: "پاسورڊ وساري ڇڏيو؟", signup: "سائن اپ",
+    },
+    ta: {
+        welcome: "தமிழ் மொழிபெயர்ப்பு இல்லை.", demo: "தமிழ் மொழிபெயர்ப்பு இல்லை.", placeholder: "தமிழ் மொழிபெயர்ப்பு இல்லை.", header: "கிருஷி சகாயக்", logout: "வெளியேறு", loginTitle: "கிருஷி சகாயக் உள்நுழைவு", username: "பயனர் பெயர்", password: "கடவுச்சொல்", loginBtn: "உள்நுழை", forgotPassword: "கடவுச்சொல்லை மறந்துவிட்டீர்களா?", signup: "பதிவு செய்க",
+    },
+    te: {
+        welcome: "తెలుగు అనువాదం అందుబాటులో లేదు.", demo: "తెలుగు అనువాదం అందుబాటులో లేదు.", placeholder: "తెలుగు అనువాదం అందుబాటులో లేదు.", header: "కృషి సహాయక్", logout: "లాగ్అవుట్", loginTitle: "కృషి సహాయక్ లాగిన్", username: "యూజర్‌నేమ్", password: "పాస్‌వర్డ్", loginBtn: "లాగిన్", forgotPassword: "పాస్‌వర్డ్ మర్చిపోయారా?", signup: "సైన్ అప్",
+    },
+    ur: {
+        welcome: "اردو ترجمہ دستیاب نہیں ہے۔", demo: "اردو ترجمہ دستیاب نہیں ہے۔", placeholder: "اردو ترجمہ دستیاب نہیں ہے۔", header: "کرشی سہائک", logout: "لاگ آؤٹ", loginTitle: "کرشی سہائک لاگ ان", username: "یوزرنیم", password: "پاسورڈ", loginBtn: "لاگ ان", forgotPassword: "پاسورڈ بھول گئے ہیں؟", signup: "سائن اپ",
+    },
+    bo: {
+        welcome: "बोडो अनुवाद उपलब्ध छैन।", demo: "बोडो अनुवाद उपलब्ध छैन।", placeholder: "बोडो अनुवाद उपलब्ध छैन।", header: "कृषि सहाय्यक", logout: "लगआउट", loginTitle: "कृषि सहाय्यक लगइन", username: "प्रयोगकर्ता नाम", password: "पासवर्ड", loginBtn: "लगइन", forgotPassword: "पासवर्ड बिर्सनुभयो?", signup: "साइन अप",
+    },
+    doi: {
+        welcome: "डोगरी अनुवाद उपलब्ध नहीं है।", demo: "डोगरी अनुवाद उपलब्ध नहीं है।", placeholder: "डोगरी अनुवाद उपलब्ध नहीं है।", header: "कृषि सहायक", logout: "लगआउट", loginTitle: "कृषि सहायक लगइन", username: "उपयोगकर्ता नाम", password: "पासवर्ड", loginBtn: "लगइन", forgotPassword: "पासवर्ड भूल गए?", signup: "साइन अप",
+    },
+    mai: {
+        welcome: "मैथिली अनुवाद उपलब्ध नहिं अछि।", demo: "मैथिली अनुवाद उपलब्ध नहिं अछि।", placeholder: "मैथिली अनुवाद उपलब्ध नहिं अछि।", header: "कृषि सहायक", logout: "लगआउट", loginTitle: "कृषि सहायक लगइन", username: "उपयोगकर्ता नाम", password: "पासवर्ड", loginBtn: "लगइन", forgotPassword: "पासवर्ड बिसरि गेलहुं?", signup: "साइन अप",
+    },
+    sat: {
+        welcome: "ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱛᱚᱨᱡᱚᱢᱟ ᱵᱟᱹᱱᱩᱜᱼᱟ᱾", demo: "ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱛᱚᱨᱡᱚᱢᱟ ᱵᱟᱹᱱᱩᱜᱼᱟ᱾", placeholder: "ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱛᱚᱨᱡᱚᱢᱟ ᱵᱟᱹᱱᱩᱜᱼᱟ᱾", header: "ᱠᱟᱨᱥᱤ ᱥᱚᱦᱟᱭᱚᱠ", logout: "ᱞᱚᱜᱟᱩᱴ", loginTitle: "ᱠᱟᱨᱥᱤ ᱥᱚᱦᱟᱭᱚᱠ ᱞᱚᱜᱤᱱ", username: "ᱭᱩᱡᱟᱹᱨ ᱧᱩᱛᱩᱢ", password: "ᱯᱟᱥᱣᱟᱹᱨᱰ", loginBtn: "ᱞᱚᱜᱤᱱ", forgotPassword: "ᱯᱟᱥᱣᱟᱹᱨᱰ ᱦᱤᱲᱤᱧ ᱠᱮᱫᱟ?", signup: "ᱥᱟᱭᱤᱱ ᱟᱹᱯ",
+    },
+  };
+
+  function applyTranslations(lang, resetWelcome = false) {
+      const t = translations[lang] || translations["en"];
+      
+      document.querySelector('.login-card h2').textContent = t.loginTitle;
+      usernameInput.placeholder = t.username;
+      passwordInput.placeholder = t.password;
+      document.getElementById('loginBtn').textContent = t.loginBtn;
+      document.getElementById('forgotPasswordLink').textContent = t.forgotPassword;
+      document.getElementById('signupLink').textContent = t.signup;
+
+      document.getElementById("chatHeader").textContent = t.header;
+      userInput.placeholder = t.placeholder;
+      document.getElementById("logoutBtn").innerHTML = `<span class="material-symbols-rounded">logout</span> ${t.logout}`;
+      if (resetWelcome) chatMessages.innerHTML = `<div class="message bot">${t.welcome}</div>`;
+  }
+
+  function changeAppLanguage() {
+      const lang = document.getElementById("appLanguage").value;
+      applyTranslations(lang, true);
+      if (window.innerWidth <= 768) { sidebar.classList.remove("show"); }
+  }
+
+  function logout() {
+      appContainer.style.display = "none";
+      loginCard.style.display = "block";
+      usernameInput.value = "";
+      passwordInput.value = "";
+      showPage('chat'); // Reset to chat page on logout
+  }
+
+  function sendMessage() {
+      const lang = document.getElementById("appLanguage").value;
+      const t = translations[lang] || translations["en"];
+      const text = userInput.value.trim();
+      if (!text) return;
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.textContent = text;
+      chatMessages.appendChild(userMsg);
+      userInput.value = "";
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      setTimeout(() => {
+          const botMsg = document.createElement("div");
+          botMsg.className = "message bot";
+          botMsg.textContent = t.demo;
+          chatMessages.appendChild(botMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 600);
+  }
+
+  userInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+  function showPage(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.content-page').forEach(page => {
+      page.classList.remove('active');
+    });
+
+    // Show the requested page
+    document.getElementById(pageId + 'Page').classList.add('active');
+
+    // Update header text
+    let headerText = '';
+    switch(pageId) {
+      case 'chat':
+        headerText = 'Krishi Sahayog';
+        break;
+      case 'profile':
+        headerText = 'Profile';
+        break;
+      case 'help':
+        headerText = 'Help Desk';
+        break;
+      case 'location':
+        headerText = 'Location';
+        break;
+      case 'updates':
+        headerText = 'Updates';
+        break;
+      case 'community':
+        headerText = 'Community';
+        break;
+      case 'weather':
+        headerText = 'Weather Forecast';
+        break;
+    }
+    document.getElementById('chatHeader').textContent = headerText;
+
+    // Update active button state
+    document.querySelectorAll('#sidebar button').forEach(button => {
+        button.classList.remove('active');
+    });
+    document.getElementById(pageId + 'Btn').classList.add('active');
+    
+    // Hide sidebar on mobile after clicking
+    if (window.innerWidth <= 768) {
+        sidebar.classList.remove('show');
+    }
+  }
+</script>
+</body>
+</html>
